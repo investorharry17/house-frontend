@@ -1,0 +1,40 @@
+#cip {
+  padding: 30px 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+label.block {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 0;
+}
+span.block {
+  padding: 8px 0;
+}
+#cip ul {
+  padding: 8px 0;
+}
+#cip ul li {
+  padding: 3px 0;
+}
+#cip a {
+  color: #36a333;
+}
+@media only screen and (min-width: 500px) {
+  #cip {
+    margin: 30px 20px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #cip {
+    width: 88%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #cip {
+    width: 1110px;
+  }
+}

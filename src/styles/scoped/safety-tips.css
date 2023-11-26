@@ -1,0 +1,143 @@
+#st {
+  background: #fff;
+  padding: 30px 20px;
+  margin: 0 0 30px 0;
+}
+ul.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  box-shadow: 0px 0px 6px 1px #0000001c;
+  margin: 0 5px 20px 5px;
+}
+ul.head li {
+  margin: 5px 0;
+}
+ul.head li:nth-of-type(1) {
+  background: linear-gradient(to right, white, #d56661, #ffffff);
+  color: #fff;
+  font-weight: bold;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+}
+.st-m-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  box-shadow: 0px 0px 6px 1px #0000001c;
+  margin: 0 5px 20px 5px;
+}
+.st-m-block span.head {
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid #00b53f;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.st-block {
+  margin: 10px 0;
+  display: flex;
+}
+.st-block img {
+  height: 80px;
+  width: 80px;
+  object-fit: center;
+  margin-right: 15px;
+}
+.st-block li {
+  margin: 5px 0;
+}
+.st-block li:nth-child(1),
+.st-block span.bold {
+  font-weight: bold;
+  font-size: 16px;
+}
+.st-block label {
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid #36a434;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.st-block.scams {
+  flex-direction: column;
+}
+.st-block.scams ul {
+  display: flex;
+}
+
+.st-block.scams ul li {
+  display: flex;
+  flex-direction: column;
+}
+.sr-block .support {
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.st-m-block a {
+  color: #00b53f;
+}
+@media only screen and (min-width: 768px) {
+  #st {
+    width: 80%;
+    margin: 30px 0;
+    background: none;
+  }
+  .st-m-block {
+    box-shadow: none;
+    background: #fff;
+    padding: 0;
+    padding-bottom: 20px;
+  }
+  ul.head {
+    padding: 20px;
+    box-shadow: none;
+    background: #fff;
+  }
+  .st-m-block span.head {
+    border: none;
+    background: #f3f9fe;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .st-block {
+    margin: 10px 0;
+    display: flex;
+    padding: 10px 30px;
+    width: 90%;
+  }
+  .st-block.label {
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    background: #f3f9fe;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .st-block.label label {
+    border: none;
+  }
+  .sr-block .support {
+    display: unset;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #st {
+    width: 1100px;
+  }
+}
