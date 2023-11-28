@@ -41,8 +41,8 @@ const Cards = {
 }
 const Account = {
     login : (body) => requests.post('auth/login', body),
-    currentUser: () => requests.get('auth/currentUser'),
-    register : (body) => requests.post('auth/register', body)
+    register : (body) => requests.post('auth/register', body),
+    getIdOwner: ( id ) => requests.get('user', id ),
 }
 const Business = {
     getBusinesses : () => requests.get("adverts"),
@@ -72,7 +72,8 @@ const Bookmarks = {
 const Post = {
     getAll : (params) => requests.get("post", params),
     getOne : (id) => requests.get("post/" + id ),
-    post : (id, body) => requests.put("post/" + id , body )
+    add : body => requests.put("post", body ),
+    search : params  => requests.get("post/find/s", params )
 }
 
 const agent = {

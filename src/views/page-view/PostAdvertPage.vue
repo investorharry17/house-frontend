@@ -1,5 +1,6 @@
 <script setup>
   import axios from "axios"
+  import agent from "@/app/agent.js"
   import { Store } from "@/stores/userStore"
   import { PlusOutlined } from '@ant-design/icons-vue';
   import "@/styles/scoped/post-ad.css"
@@ -132,7 +133,7 @@ const handlePreview = async file => {
             postOwnerId : MainStore.USER.value._id
         }
 
-         await axios.post("http://localhost:5000/ibommarket/api/v1/post", postDetails)
+         await agent.Post.add( postDetails )
         MainStore.openNotificationModal("success", "Post Successful", "Congratulation, your advert has been added to Ibommarket")
 
         router.push('/')  

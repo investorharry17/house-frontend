@@ -234,10 +234,10 @@ function closeModal (argument) {
                 <label :class = "{ error : v$.agreeWithRules?.$errors[0] }" for="i-agree">I agree with rules</label> 
               </div>
                 <span> </span>
-              <span class="forgotten-password"> Forgot your Password?</span> 
-              <button :disabled="sendingAuthDetails" @click="submitForm" class="submit-login-details"> 
-                {{ sendingAuthDetails ? 'authenticating...' : 'SIGN IN' }} 
-              </button>
+              <span class="forgotten-password"> Forgot your Password?</span>  
+              <a-button :loading="sendingAuthDetails" @click="submitForm" class="submit-login-details" type="primary">  
+                 {{ sendingAuthDetails ? 'authenticating...' : 'SIGN IN' }} 
+              </a-button>
               <span v-if="requestErrors" style="color: red"> {{ requestErrors }} </span>
             </template>
             

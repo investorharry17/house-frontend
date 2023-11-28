@@ -1,13 +1,15 @@
 <script setup>
 	import { RouterLink } from "vue-router"
 	import { Store } from "@/stores/userStore.js"
+	import { Modal_States } from "@/stores/modalStatesStore.js"
 	import axios from "axios"
 	import { defineProps  } from "vue"
 	import agent from "@/app/agent.js"
 
 	const MainStore = Store()
+	const ModalStatesStore = Modal_States()
 	const prop = defineProps(["cardDetails"])
-	function formatPrice (price) {
+	function formatPrice (price) { 
 		return price.toLocaleString()
 	}
 	function preventRedirect(event) {
@@ -15,12 +17,13 @@
 		console.log("NO REDIRECT")
 	}
 	async function addBookmark (cardId) {
-		if (!MainStore.USER) {
-			MainStore.updateModalState(true)
+		if (!MainStore.USER.value === false ) {
+			ModalStatesStore.updateLoginModalState(true)
 			return false
 		}
+		console.log(MainStore.USER._id)
 		try {
-			const res = await  agent.Bookmarks.put( MainStore?.USER.value._id, {productId : cardId } ) 
+			const res = await  agent.Bookmarks.put( MainStore.USER?._id, {productId : cardId } ) 
 			const data = res.data
 			MainStore.updateUserBookmarks(data)
 			console.log(data)

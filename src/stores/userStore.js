@@ -19,16 +19,16 @@ export const Store = defineStore ("user", ()=>{
  
 		const USER  = ref(null)
 
-   		const token =  ref(JSON.parse( localStorage.getItem("USER") )) 
+   		const token =  JSON.parse( localStorage.getItem("USER") )
 		const userBookmarks = ref(null)
-
-		if (token.value === true) {
+		console.log(token)
+		if (token) {
 			console.log(token)
-			USER.value = token.value
+			USER.value = JSON.parse( localStorage.getItem("USER") )
 			console.log(token)
 		  	async	function getBookmarks(argument) {
 					
-				const res = await agent.Bookmarks.get(token.value._id)
+				const res = await agent.Bookmarks.get(token._id)
 				userBookmarks.value = res
 				console.log(res)
 			}

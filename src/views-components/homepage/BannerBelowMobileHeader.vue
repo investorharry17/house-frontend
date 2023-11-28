@@ -1,6 +1,7 @@
 <script setup>
   import { Store } from "@/stores/userStore.js"
   import { useRouter } from "vue-router"
+  import agent from "@/app/agent.js"
   import axios from "axios"
 	import { ref } from "vue"
   const suggestions = ref([])
@@ -11,8 +12,9 @@
         // inputValue.value = inputValue.value.trim()
         MainStore.updateUserSearchString(inputValue.value)
         try {
-          const res = await axios.post("http://localhost:5000/ibommarket/api/v1/post/find?searchString=" + inputValue.value.trim() )
-          const data = res.data
+          console.log("?searchString=" + inputValue.value.trim())
+          const res = await agent.Post.search( { searchString  : inputValue.value.trim() } )
+          const data = res
           console.log(data)
           suggestions.value = data
         } catch( error ){
