@@ -131,8 +131,10 @@ const handlePreview = async file => {
             title : uploadData.title,
             description : uploadData.description,
             price : uploadData.price,
-            postOwnerId : MainStore.USER.value._id
+            postOwnerId : MainStore.USER._id
         }
+
+          console.log("passed USER.value._id")
 
          await agent.Post.add( postDetails )
         MainStore.openNotificationModal("success", "Post Successful", "Congratulation, your advert has been added to Ibommarket")
