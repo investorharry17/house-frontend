@@ -116,11 +116,12 @@ const handlePreview = async file => {
          const newRes = await Promise.all(res[0])
          const uploadImageUrl = []
           const uploadPublicId = []
-
+          console.log("res.data._id")
           newRes.forEach(res => {
             uploadImageUrl.push(res.data.url)
             uploadPublicId.push(res.data.public_id)
           })
+          console.log("USER.value._id")
         const postDetails = {
             category : uploadData.category,
             subCategory : uploadData.subCategory,
