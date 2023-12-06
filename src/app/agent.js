@@ -78,8 +78,8 @@ const Post = {
     search : params  => requests.get("post/find/s", params )
 }
 const postActions = {
-    close : (id, body) => requests.put("post/action/close/" + id), body),
-    active : (id, body) => requests.put("post/action/active/" + id), body),
+    close : (id, body) => requests.put("post/action/close/" + id, body),
+    active : (id, body) => requests.put("post/action/active/" + id, body),
 }
 
 const agent = {
