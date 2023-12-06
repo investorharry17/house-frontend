@@ -12,7 +12,6 @@ import ProfilePage from "./views/page-view/ProfilePage.vue"
 import MyAdvertsPage from "./views/page-view/MyAdvertsPage.vue"
 import PerformancePage from "./views/page-view/PerformancePage.vue"
 import PostAdvertPage from "./views/page-view/PostAdvertPage.vue"
-import Transactions from "./views/page-view/TransactionsList.vue"
 import UserAndBusinessPage from "./views/page-view/UserAndBusinessPage.vue"
 import BookmarksPage from "./views/page-view/Bookmarks.vue"
 import Test from "./views/page-view/Test.vue"
@@ -85,11 +84,6 @@ const router = createRouter({
 			path: "/post-ad",
 			name: "Post advert Page ",
 			component: PostAdvertPage
-		},	
-		{
-			path: "/transactions",
-			name: "Transaction Page ",
-			component: Transactions
 		},	
 		{
 			path: "/business/:ownerId",

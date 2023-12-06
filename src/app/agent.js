@@ -56,24 +56,30 @@ const Advert = {
     delete : id => requests.delete("adverts/" + id),
 }
 const Categories = {
-    get : () => requests.get("categories"),
-    post : body => requests.postForm("categories", body),
-    delete : id => requests.delete("categories/" + id),
+    get : () => requests.get("post-categories"),
+    post : body => requests.postForm("post-categories", body),
+    delete : id => requests.delete("post-categories/" + id),
 }
 const SubCategories = {
-    get : () => requests.get("subcategories"),
-    post : body => requests.postForm("subcategories", body),
-    delete : id => requests.delete("subcategories/" + id),
+    get : () => requests.get("post-sub-categories"),
+    post : body => requests.postForm("post-sub-categories", body),
+    delete : id => requests.delete("post-sub-categories/" + id),
 }
 const Bookmarks = {
     get : (id) => requests.get("bookmark/" + id ),
+    getAll : (id, body) => requests.post("bookmark/all/" + id, body ),
     put : (id, body) => requests.put("bookmark/" + id , body )
 }
 const Post = {
     getAll : (params) => requests.get("post", params),
     getOne : (id) => requests.get("post/" + id ),
+    getUsersPost : (id) => requests.get("post/user/" + id ),
     add : body => requests.put("post", body ),
     search : params  => requests.get("post/find/s", params )
+}
+const postActions = {
+    close : (id, body) => requests.put("post/action/close/" + id), body),
+    active : (id, body) => requests.put("post/action/active/" + id), body),
 }
 
 const agent = {
@@ -84,7 +90,8 @@ const agent = {
     Categories,
     SubCategories,
     Bookmarks,
-    Post
+    Post,
+    postActions
 }
 
 export default agent;

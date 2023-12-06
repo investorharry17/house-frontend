@@ -4,6 +4,7 @@
 	import { useRouter } from "vue-router" 
 	import axios from "axios"
 	import { RouterLink } from "vue-router"
+	import agent from "@/app/agent.js"
 	
 	import ProfilePageNavBar from "../generic-view/ProfilePageNavBar.vue" 
 	// import "../../styles/scoped/my-adverts.css"
@@ -12,7 +13,7 @@
 	const MainStore = Store()
 	const router = useRouter()
 	const callCount = ref(0)
-	const fetchedBookmarks = ref([])
+	const fetchedBookmarks = ref([]) 
 	if (!localStorage.USER) {
 		router.push("/?from=/bookmarks")
 		console.log(MainStore.USER)
@@ -24,7 +25,7 @@
 	async function getBookmarksPost() {
 		try {
 				console.log("getting")
-				let res = await axios.post("http://localhost:5000/ibommarket/api/v1/bookmark/all/" + MainStore.USER, {
+				let res = await agent.Bookmarks.getAll( MainStore.USER , {
 					bookmarksArray : MainStore.userBookmarks.bookmarks
 				})
 				let data = res.data
@@ -57,7 +58,7 @@
 	}
 	async function removeBookmark(cardId) {
 		try {
-			const res = await axios.put( MainStore.apiBaseUrl + "/bookmark/" + MainStore?.USER._id , {productId : cardId })
+			const res = await agent.Bookmarks.put( MainStore?.USER._id , {productId : cardId })
 			const data = res.data
 			MainStore.updateUserBookmarks(data.data)
 			console.log(data)

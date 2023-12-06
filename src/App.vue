@@ -27,7 +27,7 @@
     loginModalDisplayState.value = !loginModalDisplayState.value
     console.log(pas)
    }
-
+// colorPrimary: '#3db83a',
 
  </script> 
 
@@ -35,7 +35,7 @@
       <a-config-provider
     :theme="{
       token: {
-        colorPrimary: '#3db83a',
+        colorPrimary: '#3883fa',
       },
     }"
   > 

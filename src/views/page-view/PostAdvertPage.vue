@@ -46,8 +46,8 @@ const onFinishFailed = errorInfo => {
       try {
         console.log("trying")
         let categories = await axios.all([
-          axios.get("http://localhost:5000/ibommarket/api/v1/post-categories"),
-          axios.get("http://localhost:5000/ibommarket/api/v1/post-sub-categories") 
+          agent.Categories.get(),
+          agent.SubCategories.get()
         ])
         formCategories.value = categories[0].data.categories
         formSubCategories.value = categories[1].data.subCategories

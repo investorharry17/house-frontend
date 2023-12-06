@@ -7,7 +7,7 @@
 	import HomepageAdvertBanner from "./HomepageAdvertBanner.vue"
 	import PostAdAndUrgentRequest from "./PostAdAndUrgentRequest.vue"
 	import ProductCard from "./ProductCard.vue"
-	// import LoadingAnimation from "../../views/generic-view/LoadingAnimation.vue"
+	import LoadingAnimation from "../../views/generic-view/LoadingAnimation.vue"
     
 	const fetchingData = ref(true)
 	const fetchingDataError = ref(false)
@@ -62,6 +62,7 @@
 						<span> Error occoured while fetching data  </span> 
 					</div> 
 				</template>
+				<LoadingAnimation class ="homepage data-loading-animation" />
 		</div>
 	</div> 
 </template>

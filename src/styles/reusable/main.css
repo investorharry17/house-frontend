@@ -1615,9 +1615,9 @@ div#scroll.index a:nth-of-type(1) ol:nth-of-type(1) li {
 }
 
 .data-loading-animation div {
-  width: 20px;
-  height: 20px;
-  margin: 5px;
+  width: 15px;
+  height: 15px;
+  margin: 2px;
   border-radius: 50%;
   animation: animate-loader 500ms cubic-bezier(.7,0,1,1) alternate infinite
 }
@@ -1635,7 +1635,7 @@ div#scroll.index a:nth-of-type(1) ol:nth-of-type(1) li {
 }
 @keyframes animate-loader {
   0% {
-    transform: translate( 0px , -20px);
+    transform: translate( 0px , -10px);
   }
 }
 

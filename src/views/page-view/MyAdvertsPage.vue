@@ -3,6 +3,7 @@
 	import { ref , reactive } from "vue"
 	import { useRouter } from "vue-router" 
   import axios from "axios"
+  import agent from "@/app/agent.js"
 	import ProfilePageNavBar from "../generic-view/ProfilePageNavBar.vue"
 	import ActiveAdvertCard from "../../views-components/profile-page/ActiveAdvertCard.vue"
 	import ReviewingAdvertCard from "../../views-components/profile-page/ReviewingAdvertCard.vue"
@@ -35,7 +36,7 @@
   async function getUserPosts () {
     try {
       // console.log(MainStore.USE)
-      const res = await axios.get("http://localhost:5000/ibommarket/api/v1/post/user/" + MainStore.USER._id )
+      const res = await agent.Post.getUsersPost ( MainStore.USER._id )
       userPosts.value = res.data.posts
       console.log(res.data)
       // console.log(userPosts.value) 
@@ -64,9 +65,7 @@
   async function closeAdvertFunction(postId) {
     // body...
     try {
-        const res = await  axios.put("http://localhost:5000/ibommarket/api/v1/post/action/close/" + postId, {
-          postOwnerId : MainStore.USER._id
-        } )
+        const res = await agent.postActions.close( postId, {  postOwnerId : MainStore.USER._id })
         
       sortedPosts.active = []
       sortedPosts.reviewing = []
@@ -97,9 +96,8 @@
   async function makeAdvertActiveFunction(postId) {
     // body...
      try {
-        const res = await  axios.put("http://localhost:5000/ibommarket/api/v1/post/action/active/" + postId, {
-          postOwnerId : MainStore.USER._id
-        } )
+        const res = await agent.postActions.active( postId, {  postOwnerId : MainStore.USER._id })
+        
 
       sortedPosts.active = []
       sortedPosts.reviewing = []
