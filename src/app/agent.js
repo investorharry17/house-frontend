@@ -74,7 +74,7 @@ const Post = {
     getAll : (params) => requests.get("post", params),
     getOne : (id) => requests.get("post/" + id ),
     getUsersPost : (id) => requests.get("post/user/" + id ),
-    add : body => requests.put("post", body ),
+    add : body => requests.post("post", body ),
     search : params  => requests.get("post/find/s", params )
 }
 const postActions = {
