@@ -49,8 +49,8 @@ const onFinishFailed = errorInfo => {
           agent.Categories.get(),
           agent.SubCategories.get()
         ])
-        formCategories.value = categories[0].data.categories
-        formSubCategories.value = categories[1].data.subCategories
+        formCategories.value = categories[0].categories
+        formSubCategories.value = categories[1].subCategories
         console.log(categories)
         console.log(formCategories.value)
       } catch (err) {
