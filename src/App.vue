@@ -35,7 +35,7 @@
       <a-config-provider
     :theme="{
       token: {
-        colorPrimary: '#3883fa',
+        colorPrimary: '#3db83a',
       },
     }"
   > 
