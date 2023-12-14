@@ -1,64 +1,32 @@
-<script setup>  
-  import axios from "axios"
-  import { ref } from "vue"
-  import { RouterView } from "vue-router"
-  import  { Store } from "@/stores/userStore.js" 
-  // components
-  import Footer from "./views/generic-view/Footer.vue"  
-  import LoadingAnimation from "./views/generic-view/LoadingAnimation.vue"  
-  import DesktopFooterLinks from "./views/generic-view/DesktopFooterLinks.vue"  
-  import LoginModal from "./views/generic-view/LoginModal.vue"  
-  import MainHeader from "./views/generic-view/MainHeader.vue"  
-  import MobileSlideBar from "./views/generic-view/MobileSlideBar.vue"  
-  import MobileViewFooter from "./views/generic-view/MobileViewFooter.vue"  
-  import InfoModals from "@/views/generic-view/InfoModals.vue"
-  // syles
-  import "./styles/reusable/login-modal.css"
-  import "./styles/reusable/main.css"
-    
-  const mainUserStore = Store()
-  const fetchingUser = ref(true)
-   
- 
+<script setup>
+	import "@/assets/css/main.css"
+	import Aside from "@/Views/generic/Aside.vue"
+	import Header from "@/Views/generic/Header.vue"
+	import Footer from '@/views/generic/Footer.vue'
+	import { RouterView, useRouter } from "vue-router"
 
-  // login modal state and function
-   const loginModalDisplayState = ref(false)
-   const updateLoginModalDisplayState = (pas) => {
-    loginModalDisplayState.value = !loginModalDisplayState.value
-    console.log(pas)
-   }
-// colorPrimary: '#3db83a',
+</script>
 
- </script> 
+<template>
+	<a-config-provider
+	    :theme="{
+	      token: {
+	        colorPrimary: '#3BB77E',
+	      },
+	    }"
+	  >  
+			<Aside v-if="$route.path !== '/login' &&  $route.path !== '/register' " /> 
+		    <main :class = "{ 'main-wrap' : $route.path !== '/login' &&  $route.path !== '/register' }">
+		   		<div class="screen-overlay"></div>
+		   		<Header v-if="$route.path !== '/login' &&  $route.path !== '/register' " />
+		  		<RouterView /> 
+		  		<Footer v-if="$route.path !== '/login' &&  $route.path !== '/register' " /> 
+			</main>
+	 
 
-<template> 
-      <a-config-provider
-    :theme="{
-      token: {
-        colorPrimary: '#3db83a',
-      },
-    }"
-  > 
-  <div id="fake-wrap-container" > 
-    <InfoModals />
-      <LoginModal />
-      <MainHeader />
-      <RouterView 
-       :updateLoginModalDisplayState = "updateLoginModalDisplayState"
-       :USER = "USER"
-       />
-      <LoadingAnimation />
-      <DesktopFooterLinks />
-      <MobileSlideBar />
-      <MobileViewFooter />
-      <Footer />
-  </div>
-</a-config-provider >
+	</a-config-provider>
 </template>
 
-<style >
-  .ant-notification {
-    z-index: 2500
-  }
+<style scoped>
+ 
 </style>
-
