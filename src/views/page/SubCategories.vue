@@ -2,7 +2,7 @@
     import { useQuery } from "@tanstack/vue-query" 
     import agent from '@/app/agent.js'
     import { useRouter } from "vue-router"
-    import { Store } from "@/store/AdminStore.js"
+    import { Store } from "@/store/userStore.js"
     import { message as antMessage } from 'ant-design-vue';
     import { ref, reactive } from "vue"
     import useVuelidate from "@vuelidate/core"

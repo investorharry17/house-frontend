@@ -2,7 +2,7 @@
 	import { useQuery } from "@tanstack/vue-query" 
 	import agent from '@/app/agent.js'
     import { useRouter } from "vue-router"
-    import { Store } from "@/store/AdminStore.js"
+    import { Store } from "@/store/userStore.js"
     import { message as antMessage } from 'ant-design-vue';
     import { ref, reactive } from "vue"
     import useVuelidate from "@vuelidate/core"
@@ -33,13 +33,13 @@
         }, 100);
     }
 	const fetchData = async () => {       
-            const res = await  agent.Categories.get()
+            const res = await  agent.Post.getAll()
         	console.log(res)
-        	return res
+        	return res.posts
 	}
  
 	const { isLoading, data, error, isError } = useQuery({
-		queryKey: ["Categories"],
+		queryKey: ["Posts"],
 		queryFn: () => fetchData(),  
 		keepPreviousData: true 
 	}) 
@@ -111,22 +111,21 @@
             </header>
             <!-- card-header end// -->
             <div class="card-body">
-                <div class="row gx-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5"> 
+                <div class="row gx-3 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5"> 
                 	<template v-if="!isError && !isLoading ">
                 		
-                    	<div v-for="category in data" :key="category.Id" class="col">
-	                        <div class="card card-product-grid">
-	                        	<div class="id">
-	                        		id : {{category.Id}}
-	                        	</div>
-	                            <div class="img-wrap"> 
-	                            	<img :src="category.ImageUrl" :alt="category.Name" /> 
+                    	<div v-for="post in data" :key="post._id" class="col">
+	                        <div class="card card-product-grid"> 
+
+	                            <div class="img-wrap" :style= "{ 'background-image' : 'url('  + post.postImages[0] + ')'  } "> 
+	                            	 
 	                            </div>
 	                            <div class="info-wrap">
-	                                <div class="title text-truncate"> {{ category.Name }} </div>
+	                                <div class="title text-truncate"> {{ post.title }} </div>
+                                    <div class="price mb-2"> {{ post.price  }}  </div> 
 	                                 
-	                                <div class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-edit"></i> Edit </div>
-	                                <div class="btn btn-sm font-sm btn-light rounded" @click="deleteCategoryId = category.Id ; deleteModal = true "> <i class="material-icons md-delete_forever" ></i> Delete </div>
+	                                <div class="btn btn-sm font-sm rounded "> <i class="material-icons md-edit"></i> </div>
+	                                <div class="btn btn-sm font-sm btn-light rounded" @click="deleteCategoryId = post._id ; deleteModal = true "> <i class="material-icons md-delete_forever" ></i>  </div>
 	                            </div>
 	                        </div>
                         <!-- card-product  end// -->
@@ -204,4 +203,14 @@
 	    color: #fff;
 
 	}
+    .card-body {
+        padding: 1.3rem 0.3rem;
+    }
+    .main-wrap .content-main {
+        padding: 30px 0;
+    }
+    .img-wrap {
+        height: 160px;
+        background-size: cover;
+    }
 </style>

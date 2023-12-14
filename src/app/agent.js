@@ -1,11 +1,11 @@
  import axios from "axios"
- 
-axios.defaults.baseURL = "https://ibommarket.azurewebsites.net/api/";
+const isLocal = false
+axios.defaults.baseURL = isLocal ? "http://localhost:5000/api/v1/" : "https://harry-house-backend.onrender.com/api/v1/";
 axios.defaults.withCredentials = false;
 const responseBody = (response) => response.data;
 
 axios.interceptors.request.use(config => {
-    const token =  JSON.parse( localStorage.getItem("ibmAdminToken") ); 
+    const token =  JSON.parse( localStorage.getItem("justMoved") ); 
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 })
@@ -23,8 +23,8 @@ const requests = {
 
 
 const Account = {
-    login : (body) => requests.post('account/login', body),
-    currentUser: () => requests.get('account/currentUser'),
+    login : (body) => requests.post('auth/login', body),
+    currentUser: () => requests.get('auth/currentuser'),
     register : (body) => requests.post('account/register', body)
 }
 const Advert = {
@@ -42,27 +42,16 @@ const SubCategories = {
     post : body => requests.postForm("subcategories", body),
     delete : id => requests.delete("subcategories/" + id),
 }
-const Properties = {
-    get : () => requests.get("properties"),
-    getOne : token => requests.get("properties/getbytoken/" + token),
-    post : body => requests.postForm("properties", body),
-    delete : id => requests.delete("properties/" + id),
-}
-const UrgentRequests = {
-    get : () => requests.get("urgentRequests"),
-    getOne : id => requests.get("urgentRequests/", id),
-    post : body => requests.post("urgentRequests", body),
-    put : body => requests.put("urgentRequests", body),
-    delete : id => requests.delete("urgentRequests/" + id),
-    getRandom: () => requests.get("urgentRequests/randomurgentrequests") 
+
+const Post = {
+    getAll : () => requests.get("post")
 }
 const agent = {
     Account,
     Advert, 
     Categories,
-    SubCategories,
-    Properties,
-    UrgentRequests
+    SubCategories, 
+    Post
 }
 
 export default agent;

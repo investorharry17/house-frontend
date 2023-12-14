@@ -4,17 +4,25 @@
 	import { required,   email, helpers } from "@vuelidate/validators"
 	import agent from "@/app/agent.js"
  	import { message as antMessage } from 'ant-design-vue';
+    import { useRouter } from "vue-router"
+    import { Store } from "@/store/userStore.js"
 
 
+    const router = useRouter()
+    const AdminStore = Store()
+
+    if (localStorage.getItem("justMoved")) {
+        router.push("/")
+    }
 	const passwordRules = helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/)
 
 	const data = reactive({
-		Username: "",
-		Password: ""
+		email: "",
+		password: ""
 	})
 	const rules = {
-		Username: { required: helpers.withMessage('Username field cannot be empty', required) },
-		Password: { required: helpers.withMessage('Password field cannot be empty', required ) , passwordRules : helpers.withMessage('Password must have at least 8 characters , one upper-case, lowercase, one number and a special character', passwordRules) 
+		email: { required: helpers.withMessage('Email field cannot be empty', required), email : helpers.withMessage("Please enter a valid email", email) },
+		password: { required: helpers.withMessage('Password field cannot be empty', required ) , passwordRules : helpers.withMessage('Password must have at least 8 characters , one upper-case, lowercase, one number and a special character', passwordRules) 
 	}
 				}
 	const v$ = useVuelidate(rules, data)
@@ -28,15 +36,21 @@
 		}  else {
 			makingRequest.value = true
 			try {
-
-				const res = await agent.Account.login(data)
+                console.log(data)
+				const res = await agent.Account.login(data) 
 				makingRequest.value = false
 				antMessage.success('Login successful!');
+                localStorage.setItem("justMoved", JSON.stringify(res.token))
+                router.push("/")
+                console.log(res)
+                const res2 = await agent.Account.currentUser()
+                console.log(res2)
+
 			} catch (err) {
 				makingRequest.value = false
 				// if () {}
 				console.log(err)
-				antMessage.error( err.response.data );
+				antMessage.error( err.response.data.message );
 			}
 		}
 
@@ -52,10 +66,7 @@
                 </div>
                 <div class="col-nav">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <div href="#" class="requestfullscreen nav-link btn-icon">
-                            	<button class="btn btn-secondary w-100"> Login</button> 
-                            </div>
+                        <li class="nav-item"> 
                         </li>
                        <li class="nav-item">
                             <RouterLink to="/register" class="requestfullscreen nav-link btn-icon"> 
@@ -71,13 +82,13 @@
                         <h4 class="card-title mb-4">Sign in</h4>
                         <form @submit.prevent="submitForm">
                             <div class="mb-3">
-                                <input v-model="data.Username" :class = "{ error : v$.Username.$errors[0] }" class="form-control" placeholder="Username" type="text" />
-                                <span  v-for="error in v$.Username.$errors" :key="error" class="error"> {{ error.$message }}  </span>
+                                <input v-model="data.email" :class = "{ error : v$.email.$errors[0] }" class="form-control" placeholder="Email" type="text" />
+                                <span  v-for="error in v$.email.$errors" :key="error" class="error"> {{ error.$message }}  </span>
                             </div>
                             <!-- form-group// -->
                             <div class="mb-3">
-                                <input v-model="data.Password" :class = "{ error : v$.Password.$errors[0] }" class="form-control" placeholder="Password" type="password" />
-                                <span  v-for="error in v$.Password.$errors" :key="error" class="error"> {{ error.$message }}  </span>
+                                <input v-model="data.password" :class = "{ error : v$.password.$errors[0] }" class="form-control" placeholder="Password" type="password" />
+                                <span  v-for="error in v$.password.$errors" :key="error" class="error"> {{ error.$message }}  </span>
                             </div>
                             <!-- form-group// -->
                             <div class="mb-3">
@@ -97,21 +108,7 @@
                         	<p class="text-center small text-muted mb-15">or sign up with</p>
                         </RouterLink>
                         <div class="d-grid gap-3 mb-4">
-                            <a href="#" class="btn w-100 btn-light font-sm">
-                                <svg aria-hidden="true" class="icon-svg" width="20" height="20" viewBox="0 0 20 20">
-                                    <path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"></path>
-                                    <path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z" fill="#34A853"></path>
-                                    <path d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z" fill="#FBBC05"></path>
-                                    <path d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.3z" fill="#EA4335"></path>
-                                </svg>
-                                Sign in using Google
-                            </a>
-                            <a href="#" class="btn w-100 btn-light font-sm">
-                                <svg aria-hidden="true" class="icon-svg" width="20" height="20" viewBox="0 0 20 20">
-                                    <path d="M3 1a2 2 0 00-2 2v12c0 1.1.9 2 2 2h12a2 2 0 002-2V3a2 2 0 00-2-2H3zm6.55 16v-6.2H7.46V8.4h2.09V6.61c0-2.07 1.26-3.2 3.1-3.2.88 0 1.64.07 1.87.1v2.16h-1.29c-1 0-1.19.48-1.19 1.18V8.4h2.39l-.31 2.42h-2.08V17h-2.5z" fill="#4167B2"></path>
-                                </svg>
-                                Sign in using Facebook
-                            </a>
+                        
                         </div>
                         <p class="text-center mb-4">Don't have account? <a href="#">Sign up</a></p>
                     </div>
